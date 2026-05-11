@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-heading: "Poppins", sans-serif;
+  
+  --color-primary: #FF6B35;
+  --color-secondary: #1E1E1E;
+  --color-accent: #FFD166;
+  --color-cream: #FFFDF9;
+}
+
+@layer base {
+  body {
+    @apply bg-cream text-secondary font-sans antialiased;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading font-bold tracking-tight;
+  }
+}
+
+.premium-card {
+  @apply rounded-[2.5rem] bg-white shadow-xl shadow-black/5 hover:shadow-2xl hover:shadow-primary/10 transition-all duration-300 border border-orange-50;
+}
+
+.bento-card-dark {
+  @apply rounded-[3rem] bg-secondary p-8 text-white shadow-2xl relative overflow-hidden;
+}
+
+.bento-card-light {
+  @apply rounded-[3rem] bg-white p-8 border border-orange-100 shadow-sm transition-all duration-300 hover:shadow-md;
+}
+
+.bento-card-accent {
+  @apply rounded-[3rem] bg-accent p-8 shadow-inner;
+}
+
+@keyframes steam {
+  0% { transform: translateY(0) scale(1); opacity: 0; }
+  50% { transform: translateY(-10px) scale(1.2); opacity: 0.3; }
+  100% { transform: translateY(-20px) scale(1.5); opacity: 0; }
+}
+
+.steam-particle {
+  @apply absolute bg-white/40 blur-md rounded-full;
+  animation: steam 3s infinite ease-out;
+}
+
+.float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}

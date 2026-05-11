@@ -1,0 +1,100 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "User account details and preferences.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "displayName": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "phoneNumber": { "type": "string" },
+        "address": { "type": "string" },
+        "role": { "type": "string", "enum": ["customer", "admin"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email", "role"]
+    },
+    "TiffinPlan": {
+      "title": "Tiffin Plan",
+      "description": "Subscription packages offered.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "price": { "type": "number" },
+        "frequency": { "type": "string", "enum": ["daily", "weekly", "monthly"] },
+        "meals": { "type": "array", "items": { "type": "string" } },
+        "isPopular": { "type": "boolean" }
+      },
+      "required": ["name", "price", "frequency"]
+    },
+    "MenuItem": {
+      "title": "Menu Item",
+      "description": "Food items available in the daily menu.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "category": { "type": "string", "enum": ["lunch", "dinner", "sides", "desserts"] },
+        "description": { "type": "string" },
+        "price": { "type": "number" },
+        "calories": { "type": "integer" },
+        "protein": { "type": "string" },
+        "isVeg": { "type": "boolean" },
+        "imageUrl": { "type": "string" }
+      },
+      "required": ["name", "category", "price"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "Customer order details.",
+      "type": "object",
+      "properties": {
+        "customerId": { "type": "string" },
+        "items": { "type": "array", "items": { "type": "object" } },
+        "total": { "type": "number" },
+        "status": { "type": "string", "enum": ["pending", "confirmed", "delivering", "delivered", "cancelled"] },
+        "deliveryAddress": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "paymentStatus": { "type": "string", "enum": ["pending", "paid", "failed"] }
+      },
+      "required": ["customerId", "items", "total", "status"]
+    },
+    "Subscription": {
+      "title": "Subscription",
+      "description": "User's active tiffin subscription.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "planId": { "type": "string" },
+        "startDate": { "type": "string", "format": "date-time" },
+        "endDate": { "type": "string", "format": "date-time" },
+        "status": { "type": "string", "enum": ["active", "expired", "paused"] }
+      },
+      "required": ["userId", "planId", "status"]
+    }
+  },
+  "firestore": {
+    "users": {
+      "schema": "User",
+      "description": "User profiles and private data."
+    },
+    "plans": {
+      "schema": "TiffinPlan",
+      "description": "Available subscription plans."
+    },
+    "menu": {
+      "schema": "MenuItem",
+      "description": "Daily food menu items."
+    },
+    "orders": {
+      "schema": "Order",
+      "description": "Individual customer orders."
+    },
+    "subscriptions": {
+      "schema": "Subscription",
+      "description": "Active user subscriptions."
+    }
+  }
+}
